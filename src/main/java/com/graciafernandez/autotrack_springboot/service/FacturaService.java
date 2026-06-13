@@ -21,18 +21,18 @@ public class FacturaService {
     private final FacturaRepository facturaRepository;
 
 
-    public Factura bucarPorId(String id) {
+    public Factura buscarPorId(String id) {
         return facturaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se ha encontrado ninguna empresa con el id" + id));
+                .orElseThrow(() -> new RuntimeException("No se ha encontrado ninguna factura con el id " + id));
     }
 
 
-     public List<Factura> bucarEstado(EstadoFactura estado) {
+     public List<Factura> buscarEstado(EstadoFactura estado) {
         return facturaRepository.findByEstado(estado);
     }
 
 
-    public List<Factura> bucarPorEmpresa(String cif) {
+    public List<Factura> buscarPorEmpresa(String cif) {
         return facturaRepository.findByEmpresaCif(cif);
     }
 
@@ -42,7 +42,7 @@ public class FacturaService {
     }
 
 
-     public List<Factura> bucarMesyAnio(int mes, int anio) {
+     public List<Factura> buscarMesyAnio(int mes, int anio) {
         return facturaRepository.findByMesYAnio(anio, mes);
     }
 

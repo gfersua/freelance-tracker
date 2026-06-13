@@ -1,5 +1,7 @@
 package com.graciafernandez.autotrack_springboot.controllers;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import com.graciafernandez.autotrack_springboot.service.EmpresaService;
 
 import lombok.RequiredArgsConstructor;
 
+
 @RestController
 @RequestMapping("/api/empresas")
 @RequiredArgsConstructor
@@ -22,26 +25,32 @@ public class EmpresaController {
 
     private final EmpresaService empresaService;
 
+    @GetMapping
+    public List<Empresa> listar() {
+        return empresaService.listarTodas();
+    }
+    
+
     @GetMapping("/{cif}")
-    public Empresa buscarPorCif(@PathVariable String cif) {
-        return empresaService.bucarPorCif(cif);
+    public ResponseEntity<Empresa> buscarPorCif(@PathVariable String cif) {
+        return ResponseEntity.ok(empresaService.buscarPorCif(cif));
 
     }
 
-    @PostMapping("/guardarEmpresa")
+    @PostMapping
     public ResponseEntity<Empresa> guardar(@RequestBody Empresa empresa) {
         Empresa guardada = empresaService.guardar(empresa);
         return ResponseEntity.ok(guardada);
     }
 
-    @PutMapping("actualizaEmpresa/{cif}")
+    @PutMapping("/{cif}")
     public ResponseEntity<Empresa> actualizar(@PathVariable String cif, @RequestBody Empresa empresa) {
         Empresa existente = empresaService.buscarPorCif(cif);
         existente.setNombre(empresa.getNombre());
         return ResponseEntity.ok(empresaService.guardar(existente));
     }
 
-    @DeleteMapping("borrarEmpresa/{cif}")
+    @DeleteMapping("/{cif}")
     public ResponseEntity<Void> eliminar(@PathVariable String cif) {
         empresaService.eliminar(cif);
         return ResponseEntity.noContent().build();

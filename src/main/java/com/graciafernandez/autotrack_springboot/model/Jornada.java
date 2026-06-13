@@ -2,6 +2,8 @@ package com.graciafernandez.autotrack_springboot.model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,6 +33,7 @@ public class Jornada {
     @Column(name = "pago_dia", nullable = false, precision = 10, scale = 2)
     private BigDecimal pagoDia;
 
+    @JsonBackReference("factura-jornada")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_factura", nullable = false)
     private Factura factura;

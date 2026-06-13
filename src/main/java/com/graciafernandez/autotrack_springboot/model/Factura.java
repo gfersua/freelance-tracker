@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,10 +32,12 @@ public class Factura {
     @Column(name = "id_factura", nullable = false)
     private String idFactura; // Ej: "2025-001"
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cif_empresa", nullable = false)
     private Empresa empresa;
 
+    @JsonManagedReference("factura-jornada")
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Jornada> jornadas = new ArrayList<>();
 

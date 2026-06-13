@@ -1,6 +1,9 @@
 package com.graciafernandez.autotrack_springboot.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,8 +28,9 @@ public class Empresa {
     @Column(nullable = false)
     private String nombre;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Factura> facturas;
+    private List<Factura> facturas = new ArrayList<>();
 
 
 

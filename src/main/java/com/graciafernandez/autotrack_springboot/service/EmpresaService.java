@@ -13,9 +13,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmpresaService {
 
-    EmpresaRepository empresaRepository;
+    private final EmpresaRepository empresaRepository;
 
-    public Empresa bucarPorCif(String cif) {
+    public Empresa buscarPorCif(String cif) {
         return empresaRepository.findById(cif)
                 .orElseThrow(() -> new RuntimeException("No se ha encontrado ninguna empresa con el cif" + cif));
     }
@@ -32,8 +32,6 @@ public class EmpresaService {
         empresaRepository.deleteById(cif);
     }
 
-    public Empresa buscarPorCif(String cif) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+
 
 }
